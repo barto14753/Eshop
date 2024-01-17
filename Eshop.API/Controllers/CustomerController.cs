@@ -1,4 +1,5 @@
 ﻿using Eshop.Application.Orders.CustomerOrder.Commands;
+using Eshop.Application.Customers.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -29,6 +30,21 @@ namespace Eshop.API.Controllers
             [FromBody] CustomerOrderRequest request)
         {
             var response = await _mediator.Send(new AddOrderCommand(customerId, request.Products));
+            return Created(string.Empty, response);
+        }
+
+
+        /// <summary>
+        /// Create new customer.
+        /// </summary>
+        /// <param name="request">name</param>
+        [Route("")]
+        [HttpPost]
+        [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.Created)]
+        public async Task<IActionResult> CreateCustomer(
+            [FromBody] CustomerRequest request)
+        {
+            var response = await _mediator.Send(new CreateCustomerCommand(request.Customer));
             return Created(string.Empty, response);
         }
     }
