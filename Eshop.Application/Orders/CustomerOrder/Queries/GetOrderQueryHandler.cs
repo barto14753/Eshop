@@ -5,12 +5,12 @@ using Eshop.Domain.Orders;
 
 namespace Eshop.Application.Orders.CustomerOrder.Queries
 {
-    public class GetOrderQueryHandler : IQueryHandler<GetOrderQuery, OrderDto>
+    public class GetCustomerQueryHandler : IQueryHandler<GetOrderQuery, OrderDto>
     {
         private readonly IMapper _mapper;
         private readonly IOrderRepository _orderRepository;
 
-        public GetOrderQueryHandler(IOrderRepository orderRepository, IMapper mapper)
+        public GetCustomerQueryHandler(IOrderRepository orderRepository, IMapper mapper)
         {
             _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));

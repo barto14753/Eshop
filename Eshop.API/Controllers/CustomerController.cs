@@ -3,6 +3,7 @@ using Eshop.Application.Customers.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Eshop.Application.Cusomters.Queries;
 
 namespace Eshop.API.Controllers
 {
@@ -31,6 +32,20 @@ namespace Eshop.API.Controllers
         {
             var response = await _mediator.Send(new AddOrderCommand(customerId, request.Products));
             return Created(string.Empty, response);
+        }
+
+        /// <summary>
+        /// Gets a specified customer.
+        /// </summary>
+        /// <param name="customerId">Customer ID.</param>
+        [Route("{customerId}")]
+        [HttpPost]
+        [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.Created)]
+        public async Task<IActionResult> GetCustomer(
+            [FromRoute] Guid customerId)
+        {
+            var customer = await _mediator.Send(new GetCustomerQuery(customerId));
+            return Ok(customer);
         }
 
 

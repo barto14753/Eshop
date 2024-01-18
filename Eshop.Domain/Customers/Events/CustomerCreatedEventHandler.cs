@@ -5,6 +5,7 @@ internal class CustomerCreatedEventHandler : INotificationHandler<CustomerCreate
 {
     public Task Handle(CustomerCreatedEvent notification, CancellationToken cancellationToken)
     {
+        Console.WriteLine(notification);
         return Task.CompletedTask;
     }
 }
