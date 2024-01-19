@@ -11,7 +11,7 @@ namespace Eshop.Domain.Orders.Rules
             _orderProducts = orderProducts;
         }
 
-        public bool IsBroken() => _orderProducts.Sum(product => product.TotalCost) < 15000;
+        public bool IsBroken() => _orderProducts.Sum(product => product.TotalCost) > 15000;
 
         public string Message => "Order must cost below 15000";
     }

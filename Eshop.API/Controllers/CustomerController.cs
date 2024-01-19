@@ -39,7 +39,7 @@ namespace Eshop.API.Controllers
         /// </summary>
         /// <param name="customerId">Customer ID.</param>
         [Route("{customerId}")]
-        [HttpPost]
+        [HttpGet]
         [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> GetCustomer(
             [FromRoute] Guid customerId)

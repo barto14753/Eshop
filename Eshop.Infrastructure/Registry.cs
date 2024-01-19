@@ -1,8 +1,10 @@
 ﻿using Eshop.Domain.Customers;
+using Eshop.Domain.Customers.Events;
 using Eshop.Domain.Orders;
 using Eshop.Domain.SeedWork;
 using Eshop.Infrastructure.Database;
 using Eshop.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
@@ -24,6 +26,9 @@ namespace Eshop.Infrastructure
             services.AddScoped<IEntityTracker, EntityTracker>();
 
             services.AddScoped<IDomainEventsDispatcher, DomainEventsDispatcher>();
+
+            services.AddScoped<INotificationHandler<CustomerCreatedEvent>, CustomerCreatedEventHandler>();
+
 
             MongoDbSettings mongoDbSettings = configuration.GetSection("MongoDB").Get<MongoDbSettings>() ?? throw new InvalidOperationException();
 
