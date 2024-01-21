@@ -1,7 +1,7 @@
 ﻿using Eshop.Application.Configuration.Queries;
 using Eshop.Application.Shared;
 
-namespace Eshop.Application.Cusomters.Queries
+namespace Eshop.Application.CheckoutCart.Queries
 {
     public class GetCheckoutCartQuery : IQuery<CheckoutCartDto>
     {

@@ -1,4 +1,5 @@
-﻿using Eshop.Domain.Customers;
+﻿using Eshop.Domain.CheckoutCart;
+using Eshop.Domain.Customers;
 using Eshop.Domain.Customers.Events;
 using Eshop.Domain.Orders;
 using Eshop.Domain.SeedWork;
@@ -16,6 +17,8 @@ namespace Eshop.Infrastructure
         public static void RegistryInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IOrderRepository, OrderRepository>();
+
+            services.AddScoped<ICheckoutCartRepository, CheckoutCartRepository>();
 
             services.AddScoped<ICustomerRepository, CustomerRepository>(); 
 
@@ -40,6 +43,11 @@ namespace Eshop.Infrastructure
             services.AddSingleton(provider =>
             {
                 return new OrdersContext(mongoDbSettings);
+            });
+
+            services.AddSingleton(provider =>
+            {
+                return new CartsContext(mongoDbSettings);
             });
 
             services.AddSingleton(provider =>

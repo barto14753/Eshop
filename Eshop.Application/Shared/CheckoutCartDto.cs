@@ -2,18 +2,21 @@
 {
     public class CheckoutCartDto
     {
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
-        public List<ProductDto> Products { get; }
+        public Guid CustomerId { get; set; }
+
+        public List<ProductDto> Products { get; set; }
 
         private CheckoutCartDto()
         {
             Products = new List<ProductDto>();
         }
 
-        public CheckoutCartDto(Guid id, List<ProductDto> products)
+        public CheckoutCartDto(Guid cartId, Guid customerId, List<ProductDto> products)
         {
-            Id = id;
+            Id = cartId;
+            CustomerId = customerId;
             Products = products ?? throw new ArgumentNullException(nameof(products));
         }
     }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Eshop.Application.Shared;
+using Eshop.Domain.CheckoutCart;
 using Eshop.Domain.Orders;
 using Eshop.Domain.Shared;
 
@@ -36,6 +37,28 @@ namespace Eshop.Application.Mappers
             CreateMap<CustomerDto, Customer>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+
+            CreateMap<Cart, OrderDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products));
+
+            CreateMap<OrderDto, Cart>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products));
+
+            CreateMap<CartProduct, ProductDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+
+            CreateMap<ProductDto, CartProduct>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+
+            CreateMap<Cart, CheckoutCartDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId))
+                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products));
+
         }
     }
 }

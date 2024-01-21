@@ -16,7 +16,8 @@ namespace Eshop.Domain.Shared
         public static Customer Create(Guid id, string name)
         {
             CheckRule(new CustomerNameNotEmptyRule(name));
-            return new(id, name);
+            CheckRule(new CustomerNameOnlyCharsRule(name));
+;            return new(id, name);
         }
 
         private Customer(Guid id, string name)

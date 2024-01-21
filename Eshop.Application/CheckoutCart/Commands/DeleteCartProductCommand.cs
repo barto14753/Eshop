@@ -1,7 +1,7 @@
 ﻿using Eshop.Application.Configuration.Commands;
 using Eshop.Application.Shared;
 
-namespace Eshop.Application.Customers.Commands
+namespace Eshop.Application.CheckoutCart.Commands
 {
     public class DeleteCartProductCommand : CommandBase<Guid>
     {

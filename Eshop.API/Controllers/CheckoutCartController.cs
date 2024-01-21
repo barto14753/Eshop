@@ -1,5 +1,5 @@
-﻿using Eshop.Application.Cusomters.Queries;
-using Eshop.Application.Customers.Commands;
+﻿using Eshop.Application.CheckoutCart.Commands;
+using Eshop.Application.CheckoutCart.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
