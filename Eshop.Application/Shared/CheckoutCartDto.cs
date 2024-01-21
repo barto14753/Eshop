@@ -13,9 +13,9 @@
             Products = new List<ProductDto>();
         }
 
-        public CheckoutCartDto(Guid cartId, Guid customerId, List<ProductDto> products)
+        public CheckoutCartDto(Guid id, Guid customerId, List<ProductDto> products)
         {
-            Id = cartId;
+            Id = id;
             CustomerId = customerId;
             Products = products ?? throw new ArgumentNullException(nameof(products));
         }

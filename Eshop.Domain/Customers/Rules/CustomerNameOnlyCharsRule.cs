@@ -12,7 +12,7 @@ namespace Eshop.Domain.Customers.Rules
             _name = name;
         }
 
-        public bool IsBroken() => _name.All(char.IsLetter);
+        public bool IsBroken() => !_name.All(char.IsLetter);
 
         public string Message => "Customer name not only chars";
     }
