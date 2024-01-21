@@ -1,5 +1,8 @@
-﻿using Eshop.Application.Orders.CustomerOrder.Queries;
+﻿using Amazon.Runtime.Internal;
+using Eshop.Application.Orders.CustomerOrder.Commands;
+using Eshop.Application.Orders.CustomerOrder.Queries;
 using Eshop.Application.Shared;
+using Eshop.Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -27,6 +30,20 @@ namespace Eshop.API.Controllers
         {
             var orderDetails = await _mediator.Send(new GetOrderQuery(orderId));
             return Ok(orderDetails);
+        }
+
+        /// <summary>
+        /// Create order from checkout cart.
+        /// </summary>
+        /// <param name="cartId">CartId.</param>
+        [Route("/cart/{cartId}")]
+        [HttpPost]
+        [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.Created)]
+        public async Task<IActionResult> AddOrderFromCart(
+            [FromRoute] Guid cartId)
+        {
+            var response = await _mediator.Send(new AddOrderFromCartCommand(cartId));
+            return Created(string.Empty, response);
         }
     }
 }

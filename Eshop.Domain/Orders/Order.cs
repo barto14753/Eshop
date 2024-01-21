@@ -1,4 +1,5 @@
-﻿using Eshop.Domain.Orders.Events;
+﻿using Eshop.Domain.CheckoutCart;
+using Eshop.Domain.Orders.Events;
 using Eshop.Domain.Orders.Rules;
 using Eshop.Domain.Products;
 using Eshop.Domain.SeedWork;
@@ -42,6 +43,25 @@ namespace Eshop.Domain.Orders
             CheckRule(new OrderCostBelowRule(orderProducts));
 
             return new Order(customerId, orderProducts);
+        }
+
+        public static Order Create(Cart checkoutCart, List<ProductPriceData> allProductPriceDatas)
+        {
+            List<OrderProduct> orderProducts = new();
+
+            foreach (var orderProductData in checkoutCart.Products)
+            {
+                var productPriceData = allProductPriceDatas.First(x => x.ProductId == orderProductData.Id);
+
+                var orderProduct = OrderProduct.Create(orderProductData.Id, orderProductData.Quantity, productPriceData.UnitPrice);
+
+                orderProducts.Add(orderProduct);
+            }
+
+            CheckRule(new OrderMustHaveAtLeastOneProductRule(orderProducts));
+            CheckRule(new OrderCostBelowRule(orderProducts));
+
+            return new Order(checkoutCart.CustomerId, orderProducts);
         }
     }
 }

@@ -34,13 +34,6 @@ namespace Eshop.Application.CheckoutCart.Commands
                 productsData
             );
 
-            //var order = Order.Create(
-            //    request.CustomerId,
-            //    request.Products.Select(_mapper.Map<OrderProductData>).ToList(),
-            //    productsData);
-
-
-
             _checkoutCartRepository.Create(checkoutCart);
 
             await _unitOfWork.CommitAsync(cancellationToken);
