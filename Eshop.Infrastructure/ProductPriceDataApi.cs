@@ -1,21 +1,28 @@
 ﻿using Eshop.Domain.Orders;
 using Eshop.Domain.Products;
+using Refit;
 
 namespace Eshop.Infrastructure
 {
     internal class ProductPriceDataApi : IProductPriceDataApi
     {
-        public Task<List<ProductPriceData>> Get()
+        public async Task<List<ProductPriceData>> Get()
         {
-            List<ProductPriceData> productPriceDatas = new List<ProductPriceData>()
-            {
-                new ProductPriceData(Guid.Parse("514f6265-a9b8-46da-a31d-50f4f4c20911"), 10),
-                new ProductPriceData(Guid.Parse("514f6265-a9b8-46da-a31d-50f4f4c20912"), 20),
-                new ProductPriceData(Guid.Parse("514f6265-a9b8-46da-a31d-50f4f4c20913"), 30),
-                new ProductPriceData(Guid.Parse("514f6265-a9b8-46da-a31d-50f4f4c20914"), 40),
-            };
+            var api = RestService.For<IProductsApi>("http://localhost:8080");
 
-            return Task.FromResult(productPriceDatas);
+            var products = await api.GetAllProductsAsync();
+
+            List<ProductPriceData> productPriceDatas = new List<ProductPriceData>();
+
+            foreach (var product in products)
+            {
+                Guid productId = Guid.Parse(product.Id);
+                int productPrice = product.Price;
+                ProductPriceData productPriceData = new ProductPriceData(productId, productPrice);
+                productPriceDatas.Add(productPriceData);
+            }
+
+            return await Task.FromResult(productPriceDatas);
         }
     }
 }
