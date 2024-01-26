@@ -3,6 +3,7 @@ using Eshop.Domain.Customers;
 using Eshop.Domain.Customers.Events;
 using Eshop.Domain.Orders;
 using Eshop.Domain.SeedWork;
+using Eshop.Infrastructure.Api;
 using Eshop.Infrastructure.Database;
 using Eshop.Infrastructure.Repositories;
 using MediatR;
@@ -22,7 +23,7 @@ namespace Eshop.Infrastructure
 
             services.AddScoped<ICustomerRepository, CustomerRepository>(); 
 
-            services.AddScoped<IProductPriceDataApi, ProductPriceDataApi>(configuration["productsApi"]);
+            services.AddScoped<IProductPriceDataApi, ProductPriceDataApi>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -53,6 +54,11 @@ namespace Eshop.Infrastructure
             services.AddSingleton(provider =>
             {
                 return new CustomersContext(mongoDbSettings);
+            });
+
+            services.AddSingleton(provider =>
+            {
+                return new ApiContext(configuration["productApi"]);
             });
         }
     }

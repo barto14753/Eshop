@@ -1,15 +1,17 @@
 ﻿using Eshop.Domain.Orders;
 using Eshop.Domain.Products;
+using Eshop.Infrastructure.Api;
+using Microsoft.Extensions.Configuration;
 using Refit;
 
 namespace Eshop.Infrastructure
 {
     internal class ProductPriceDataApi : IProductPriceDataApi
     {
-        private readonly string _productApi
-        public ProductPriceDataApi(string productApi)
+        private readonly string _productApi;
+        public ProductPriceDataApi(ApiContext apiContext)
         {
-            _productApi = productApi;
+            _productApi = apiContext._productApi;
         }
 
         public async Task<List<ProductPriceData>> Get()
