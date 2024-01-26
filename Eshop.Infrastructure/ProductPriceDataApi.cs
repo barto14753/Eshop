@@ -6,9 +6,15 @@ namespace Eshop.Infrastructure
 {
     internal class ProductPriceDataApi : IProductPriceDataApi
     {
+        private readonly string _productApi
+        public ProductPriceDataApi(string productApi)
+        {
+            _productApi = productApi;
+        }
+
         public async Task<List<ProductPriceData>> Get()
         {
-            var api = RestService.For<IProductsApi>("http://localhost:8080");
+            var api = RestService.For<IProductsApi>(_productApi);
 
             var products = await api.GetAllProductsAsync();
 

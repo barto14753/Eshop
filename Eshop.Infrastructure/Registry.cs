@@ -22,7 +22,7 @@ namespace Eshop.Infrastructure
 
             services.AddScoped<ICustomerRepository, CustomerRepository>(); 
 
-            services.AddScoped<IProductPriceDataApi, ProductPriceDataApi>();
+            services.AddScoped<IProductPriceDataApi, ProductPriceDataApi>(configuration["productsApi"]);
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
